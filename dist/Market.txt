@@ -1,0 +1,7 @@
+use Market;
+create table User(userName varchar(200),password varchar(300),type varchar(300),constraint primary key(userName));
+
+
+
+
+

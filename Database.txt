@@ -1,0 +1,8 @@
+use Shop;
+create table User(userName varchar(200),password varchar(500),type varchar(300),constraint primary key(userName));
+create table Orders(orderId varchar(200),userName varchar(200),time varchar(200),orderDate date,totalAmount decimal(10,2),discountAmount decimal(10,2),constraint primary key(orderId,userName),constraint foreign key(userName) references User(userName)on delete cascade on update cascade);
+create table Catergory(catergoryId varchar(200),catergoryName varchar(500),constraint primary key(catergoryId));
+create table Item(itemCode varchar(200),catergoryId varchar(200),itemName varchar(500),qtyOnHand int,supplierPrice decimal(10,2),sellingprice decimal(10,2),constraint primary key(itemCode,catergoryId),constraint foreign key(catergoryId) references Catergory(catergoryId)on delete cascade on update cascade);
+create table OrderDetail(orderId varchar(200),itemCode varchar(200),supplierPrice decimal(10,2),sellingPrice decimal(10,2),orderQty int,totalPerEachItem decimal(10,2),constraint primary key(orderId,itemCode),constraint foreign key(orderId) references Orders(orderId)on delete cascade on update cascade,constraint foreign key(itemCode) references Item(itemCode)on delete cascade on update cascade);
+create table ReturnedItems(returnedId varchar(200),orderId varchar(200),itemCode varchar(200),returnDate date,reutrnedQTY int,constraint primary key(returnedId,orderId,itemCode),constraint foreign key(orderId) references Orders(orderId)on delete cascade on update cascade,constraint foreign key(itemCode) references Item(itemCode)on delete cascade on update cascade);
+create table Credit(creditId varchar(200),orderId varchar(200),amount decimal(10,2),constraint primary key(creditId,orderId));
